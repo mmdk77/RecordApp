@@ -14,7 +14,7 @@ import com.sds.study.recordapp.R;
  * 해당 파일 선택시 재생.
  */
 
-public class FileListActivity extends AppCompatActivity{
+public class FileListActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
 
     String TAG;
     ViewPager viewPager ; //Fragment 관리 객체
@@ -27,9 +27,33 @@ public class FileListActivity extends AppCompatActivity{
         Log.d(TAG,"FileListActivity"+this);
         setContentView(R.layout.list_layout);
 
-        viewPager = (ViewPager)findViewById(R.id.viewPager);                       //연결하기 위해 ViewPager 아이디 값 가져오기
+        viewPager = (ViewPager)findViewById(R.id.viewPager);                              //연결하기 위해 ViewPager 아이디 값 가져오기
         pagerAdapter = new RecordPagerAdapter(getSupportFragmentManager());     //getSupportFragmentManager는 AppCompatActivity일 경우에만 가능
         viewPager.setAdapter(pagerAdapter);                                                         //ViewPager와 pagerAdapter 연결
+
+        //OnPageChangeListener 연결
+        viewPager.addOnPageChangeListener(this);
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        //Log.d(TAG,"onPageScrolled");
+    }
+
+    @Override
+    public void onPageSelected(int position) { //페이지가 선택이 확정시 commit
+
+        Log.d(TAG,"onPageSelected");
+        DetailFragment detailFragment=(DetailFragment) pagerAdapter.fragments[1];
+        ListFragment listFragment=(ListFragment) pagerAdapter.fragments[0];
+
+        detailFragment.txt_filename.setText(listFragment.filename);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        //Log.d(TAG,"onPageScrollStateChanged");
 
     }
 }

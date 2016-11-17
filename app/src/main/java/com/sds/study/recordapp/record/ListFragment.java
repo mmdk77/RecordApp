@@ -29,6 +29,7 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
     ListView listView;
     ArrayAdapter<String> listAdapter;  //Item이 단일 위젯일경우 유용함
     ArrayList<String> list;
+    String filename;
 
     @Nullable
     @Override
@@ -65,7 +66,7 @@ public class ListFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
         TextView txt = (TextView) view;
-        String filename = txt.getText().toString();
+        filename = txt.getText().toString();
         Toast.makeText(getContext(), "파일명>>" + filename, Toast.LENGTH_SHORT).show();
 
         //2번째 ViewPage 호출 DetailFragment
